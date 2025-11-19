@@ -48,11 +48,11 @@
                 <p>Découvrez les modules et quiz pour mieux comprendre et prévenir le harcèlement scolaire.</p>
             </button>
 
-            <button class="theme-card" onclick="window.location.href='theme.php?theme=cyberharcelement'">
-                <img src="../Images/CH.jpg" alt="Cyberharcèlement">
-                <h3>Cyberharcèlement</h3>
-                <p>Comprenez les risques du cyberharcèlement et apprenez à réagir face aux situations en ligne.</p>
-            </button>
+           <button class="theme-card" onclick="window.location.href='../Controllers/afficher_modules.php?theme=cyberharcelement'">
+               <img src="../Images/CH.jpg" alt="Cyberharcèlement">
+               <h3>Cyberharcèlement</h3>
+               <p>Comprenez les risques du cyberharcèlement et apprenez à réagir face aux situations en ligne.</p>
+           </button>
         </div>
     </main>
 </body>

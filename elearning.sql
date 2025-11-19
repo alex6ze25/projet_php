@@ -72,3 +72,47 @@ CREATE TABLE certificats (
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
     FOREIGN KEY (theme_id) REFERENCES themes(id) ON DELETE CASCADE
 );
+
+-- Insérer le thème Cyberharcèlement
+INSERT INTO themes (titre, description) VALUES (
+    'Cyberharcèlement',
+    'Comprenez les risques du cyberharcèlement et apprenez à réagir face aux situations en ligne.'
+);
+
+-- Récupérer l'ID du thème inséré (généralement 1 si c'est le premier)
+SET @theme_id = LAST_INSERT_ID();
+
+-- Si LAST_INSERT_ID() ne fonctionne pas, utilisez l'ID directement :
+-- SET @theme_id = 1;
+
+-- Insérer les modules pour le cyberharcèlement
+INSERT INTO modules (theme_id, titre, type_contenu, contenu) VALUES
+(@theme_id, 'Introduction au Cyberharcèlement', 'texte', 'Le cyberharcèlement est une forme de harcèlement qui se produit en ligne, via les smartphones, Internet et les réseaux sociaux. Il peut prendre diverses formes : messages menaçants, propagation de rumeurs, partage de photos ou vidéos humiliantes sans consentement.'),
+(@theme_id, 'Les différentes formes de cyberharcèlement', 'texte', 'Le cyberharcèlement peut se manifester de plusieurs manières :
+- Harcèlement sur les réseaux sociaux
+- Usurpation d''identité numérique
+- Diffusion de contenus privés sans consentement
+- Création de faux profils
+- Exclusion en ligne d''un groupe
+- Envoi répété de messages insultants'),
+(@theme_id, 'Conséquences et impacts', 'texte', 'Le cyberharcèlement peut avoir des conséquences graves :
+- Détresse psychologique (anxiété, dépression)
+- Baisse des résultats scolaires
+- Isolement social
+- Troubles du sommeil
+- Perte d''estime de soi
+- Dans les cas extrêmes, pensées suicidaires'),
+(@theme_id, 'Comment réagir et se protéger', 'texte', 'Face au cyberharcèlement, voici les bonnes pratiques :
+- Ne pas répondre aux provocations
+- Bloquer immédiatement le harceleur
+- Sauvegarder les preuves (captures d''écran)
+- Signaler le contenu sur la plateforme
+- En parler à un adulte de confiance
+- Contacter des associations spécialisées');
+
+-- Insérer des quiz pour chaque module
+INSERT INTO quiz (module_id, question, reponse_correcte) VALUES
+(1, 'Qu''est-ce que le cyberharcèlement ?', 'Une forme de harcèlement qui se produit en ligne via les technologies numériques'),
+(2, 'Citez deux formes de cyberharcèlement', 'Harcèlement sur réseaux sociaux et usurpation d''identité numérique'),
+(3, 'Quelles sont les conséquences du cyberharcèlement ?', 'Détresse psychologique, baisse des résultats scolaires et isolement social'),
+(4, 'Que faire en cas de cyberharcèlement ?', 'Bloquer le harceleur, sauvegarder les preuves et en parler à un adulte de confiance');
