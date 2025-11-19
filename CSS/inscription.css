@@ -1,0 +1,273 @@
+/* Reset et styles de base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 0;
+}
+
+/* HEADER - Styles conservés de votre page home */
+header {
+    background-color: #b5b5db;
+    color: white;
+    padding: 5px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.logo img {
+    width: 60px;
+    height: 60px;
+    border-radius: 5px;
+}
+
+.site-title {
+    flex: 1;
+    text-align: center;
+}
+
+.site-title h1 {
+    font-size: 2.8em;
+    font-family: "Nunito", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 600;
+    font-style: normal;
+    margin: 0;
+    color: white;
+}
+
+.auth-buttons {
+    display: flex;
+    gap: 15px;
+}
+
+.auth-buttons a {
+    text-decoration: none;
+    color: white;
+    padding: 8px 15px;
+    background-color: #7B68EE;
+    border-radius: 5px;
+    transition: background-color 0.2s;
+    font-family: "Nunito", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-style: normal;
+}
+
+.auth-buttons a:hover {
+    background-color: #B0C4DE;
+    color: #333;
+}
+
+/* Conteneur principal */
+.registration-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 80px);
+    padding: 40px 20px;
+}
+
+/* Carte d'inscription */
+.registration-card {
+    background-color: white;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 500px;
+    border: none;
+}
+
+.registration-card h2 {
+    color: #333;
+    text-align: center;
+    margin-bottom: 10px;
+    font-family: "Nunito", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 700;
+    font-style: normal;
+    font-size: 2em;
+}
+
+.subtitle {
+    text-align: center;
+    color: #666;
+    margin-bottom: 30px;
+    font-family: "Nunito", sans-serif;
+    font-size: 1.1em;
+}
+
+/* Messages d'erreur et succès */
+.error-message {
+    background-color: #fadbd8;
+    color: #e74c3c;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    border-left: 4px solid #e74c3c;
+}
+
+.error-message p {
+    margin: 5px 0;
+}
+
+.success-message {
+    background-color: #d5f4e6;
+    color: #27ae60;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    border-left: 4px solid #27ae60;
+    text-align: center;
+}
+
+/* Formulaire */
+.registration-form {
+    margin-top: 20px;
+}
+
+.form-row {
+    display: flex;
+    gap: 15px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+    flex: 1;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: #34495e;
+    font-weight: 600;
+    font-family: "Nunito", sans-serif;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    font-family: "Nunito", sans-serif;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: #7B68EE;
+    box-shadow: 0 0 0 3px rgba(123, 104, 238, 0.1);
+}
+
+.form-group small {
+    color: #666;
+    font-size: 0.85em;
+    margin-top: 5px;
+    display: block;
+}
+
+/* Bouton de soumission */
+.submit-btn {
+    width: 100%;
+    background-color: #7B68EE;
+    color: white;
+    padding: 15px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    font-family: "Nunito", sans-serif;
+    margin-top: 10px;
+}
+
+.submit-btn:hover {
+    background-color: #6a5acd;
+    transform: translateY(-2px);
+}
+
+.submit-btn:active {
+    transform: translateY(0);
+}
+
+/* Lien de redirection */
+.login-redirect {
+    text-align: center;
+    margin-top: 25px;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+}
+
+.login-redirect p {
+    color: #666;
+    font-family: "Nunito", sans-serif;
+}
+
+.login-redirect a {
+    color: #7B68EE;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s;
+}
+
+.login-redirect a:hover {
+    color: #6a5acd;
+    text-decoration: underline;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    header {
+        padding: 5px 20px;
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .site-title h1 {
+        font-size: 2em;
+    }
+    
+    .form-row {
+        flex-direction: column;
+        gap: 0;
+    }
+    
+    .registration-card {
+        padding: 30px 20px;
+        margin: 20px;
+    }
+    
+    .auth-buttons {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .site-title h1 {
+        font-size: 1.6em;
+    }
+    
+    .registration-card h2 {
+        font-size: 1.6em;
+    }
+    
+    .auth-buttons {
+        flex-direction: column;
+        width: 100%;
+    }
+    
+    .auth-buttons a {
+        text-align: center;
+    }
+}
