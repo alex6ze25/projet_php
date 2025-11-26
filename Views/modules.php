@@ -14,7 +14,9 @@
                 <img src="../Images/lg.png" alt="Logo Plateforme">
             </a>
         </div>
-       
+        <div class="site-title">
+            <h1>Stop Harcèlement</h1>
+        </div>
         <div class="auth-buttons">
             <a href="../Controllers/afficher_home.php">Accueil</a>
             <a href="../Views/profil.php">Mon Profil</a>
@@ -52,11 +54,12 @@
                                 echo strlen($description) > 150 ? substr($description, 0, 150) . '...' : $description;
                                 ?>
                             </p>
-                            <div class="module-actions">
-                                <button class="start-btn" onclick="startModule(<?php echo $module['id']; ?>)">
-                                    Commencer le module
-                                </button>
-                            </div>
+                            <!-- Dans la boucle des modules, modifiez le bouton -->
+<div class="module-actions">
+    <a href="afficher_modules.php?module_id=<?php echo $module['id']; ?>" class="start-btn">
+        Commencer le module
+    </a>
+</div>
                         </div>
                     <?php endforeach; ?>
                 <?php else: ?>

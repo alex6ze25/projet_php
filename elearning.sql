@@ -73,6 +73,19 @@ CREATE TABLE certificats (
     FOREIGN KEY (theme_id) REFERENCES themes(id) ON DELETE CASCADE
 );
 
+-- Table pour suivre la progression utilisateur (si elle n'existe pas déjà)
+CREATE TABLE IF NOT EXISTS user_progression (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    module_id INT NOT NULL,
+    is_completed BOOLEAN DEFAULT FALSE,
+    score INT DEFAULT 0,
+    completed_at DATETIME NULL,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (module_id) REFERENCES modules(id) ON DELETE CASCADE,
+    UNIQUE KEY unique_user_module (user_id, module_id)
+);
+
 -- Insérer le thème Cyberharcèlement
 INSERT INTO themes (titre, description) VALUES (
     'Cyberharcèlement',
