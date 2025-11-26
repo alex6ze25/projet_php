@@ -115,7 +115,7 @@ INSERT INTO modules (theme_id, titre, type_contenu, contenu) VALUES
 - Troubles du sommeil
 - Perte d''estime de soi
 - Dans les cas extrêmes, pensées suicidaires'),
-(@theme_id, 'Comment réagir et se protéger', 'texte', 'Face au cyberharcèlement, voici les bonnes pratiques :
+(@theme_id, 'Comment agir et se protéger', 'texte', 'Face au cyberharcèlement, voici les bonnes pratiques :
 - Ne pas répondre aux provocations
 - Bloquer immédiatement le harceleur
 - Sauvegarder les preuves (captures d''écran)
