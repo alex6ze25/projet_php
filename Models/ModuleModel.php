@@ -98,4 +98,28 @@ public function getModuleWithTheme($moduleId) {
         return null;
     }
 }
+
+// Ajoute cette fonction à la fin de ta classe ModuleModel
+    public function getThemeInfoById($themeId) {
+        try {
+            $query = "SELECT * FROM themes WHERE id = :id";
+            $stmt = $this->db->prepare($query);
+            $stmt->execute(['id' => $themeId]);
+            
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+            
+        } catch (PDOException $e) {
+            return null;
+        }
+    }
+
+    // Récupérer tous les thèmes existants
+    public function getAllThemes() {
+        try {
+            $stmt = $this->db->query("SELECT * FROM themes");
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            return [];
+        }
+    }
 }

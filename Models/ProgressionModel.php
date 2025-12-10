@@ -6,101 +6,98 @@ class ProgressionModel {
         $this->db = $database;
     }
     
+    // Récupère l'état d'un module spécifique pour un user
     public function getModuleProgression($userId, $moduleId) {
         try {
             $query = "SELECT * FROM user_progression 
-                     WHERE user_id = :user_id AND module_id = :module_id";
+                      WHERE user_id = :user_id AND module_id = :module_id";
             $stmt = $this->db->prepare($query);
-            $stmt->execute([
-                'user_id' => $userId,
-                'module_id' => $moduleId
-            ]);
-            
+            $stmt->execute(['user_id' => $userId, 'module_id' => $moduleId]);
             return $stmt->fetch(PDO::FETCH_ASSOC);
-            
         } catch (PDOException $e) {
             return null;
         }
     }
     
+    // Marque le début d'un module (Statut : En cours)
     public function startModule($userId, $moduleId) {
         try {
-            $query = "INSERT INTO user_progression (user_id, module_id, is_completed, score) 
-                     VALUES (:user_id, :module_id, FALSE, 0)
-                     ON DUPLICATE KEY UPDATE is_completed = FALSE, score = 0";
+            // On insère seulement si ça n'existe pas. Si ça existe, on ne touche à rien
+            $query = "INSERT IGNORE INTO user_progression (user_id, module_id, is_completed, score, completed_at) 
+                      VALUES (:user_id, :module_id, 0, 0, NULL)";
             
             $stmt = $this->db->prepare($query);
-            return $stmt->execute([
-                'user_id' => $userId,
-                'module_id' => $moduleId
-            ]);
-            
+            return $stmt->execute(['user_id' => $userId, 'module_id' => $moduleId]);
         } catch (PDOException $e) {
             return false;
         }
     }
     
-    public function completeModule($userId, $moduleId, $score) {
-        try {
-            $query = "UPDATE user_progression 
-                     SET is_completed = TRUE, score = :score, completed_at = NOW()
-                     WHERE user_id = :user_id AND module_id = :module_id";
-            
-            $stmt = $this->db->prepare($query);
-            return $stmt->execute([
-                'user_id' => $userId,
-                'module_id' => $moduleId,
-                'score' => $score
-            ]);
-            
-        } catch (PDOException $e) {
-            return false;
-        }
-    }
-    
-    public function getNextModule($themeId, $currentModuleId) {
-        try {
-            $query = "SELECT * FROM modules 
-                     WHERE theme_id = :theme_id AND id > :current_module_id 
-                     ORDER BY id ASC LIMIT 1";
-            $stmt = $this->db->prepare($query);
-            $stmt->execute([
-                'theme_id' => $themeId,
-                'current_module_id' => $currentModuleId
-            ]);
-            
-            return $stmt->fetch(PDO::FETCH_ASSOC);
-            
-        } catch (PDOException $e) {
-            return null;
-        }
-    }
-    
+    // Récupère la progression détaillée pour tout un thème
     public function getUserProgressInTheme($userId, $themeId) {
         try {
-            $query = "SELECT m.id, m.titre, up.is_completed, up.score,
-                             (SELECT COUNT(*) FROM modules WHERE theme_id = :theme_id) as total_modules,
-                             (SELECT COUNT(*) FROM user_progression up2 
-                              JOIN modules m2 ON up2.module_id = m2.id 
-                              WHERE up2.user_id = :user_id AND m2.theme_id = :theme_id2 AND up2.is_completed = TRUE) as completed_modules
+            $query = "SELECT m.id, m.titre, m.contenu,
+                             up.is_completed, up.score, up.completed_at,
+                             CASE 
+                                WHEN up.is_completed = 1 THEN 'completed'
+                                WHEN up.id IS NOT NULL THEN 'in_progress'
+                                ELSE 'pending'
+                             END as status
                       FROM modules m
-                      LEFT JOIN user_progression up ON m.id = up.module_id AND up.user_id = :user_id2
-                      WHERE m.theme_id = :theme_id3
-                      ORDER BY m.id";
+                      LEFT JOIN user_progression up ON m.id = up.module_id AND up.user_id = :user_id
+                      WHERE m.theme_id = :theme_id
+                      ORDER BY m.id ASC";
             
             $stmt = $this->db->prepare($query);
             $stmt->execute([
                 'user_id' => $userId,
-                'user_id2' => $userId,
-                'theme_id' => $themeId,
-                'theme_id2' => $themeId,
-                'theme_id3' => $themeId
+                'theme_id' => $themeId
             ]);
             
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
-            
         } catch (PDOException $e) {
             return [];
+        }
+    }
+
+    // Récupère les statistiques globales pour le Profil (CORRIGÉ)
+    public function getGlobalStats($userId) {
+        try {
+            // 1. Nombre de modules complétés
+            $queryCount = "SELECT COUNT(*) as total FROM user_progression WHERE user_id = :user_id AND is_completed = 1";
+            $stmt = $this->db->prepare($queryCount);
+            $stmt->execute(['user_id' => $userId]);
+            $completed = $stmt->fetch(PDO::FETCH_ASSOC)['total'];
+
+            // 2. Nombre total de modules existants sur la plateforme
+            $queryTotal = "SELECT COUNT(*) as total FROM modules";
+            $stmtTotal = $this->db->query($queryTotal);
+            $totalModules = $stmtTotal->fetch(PDO::FETCH_ASSOC)['total'];
+
+            // 3. Compter les certificats (AJOUTÉ ICI AVANT LE RETURN)
+            $queryCert = "SELECT COUNT(*) FROM certificats WHERE user_id = :user_id";
+            $stmtCert = $this->db->prepare($queryCert);
+            $stmtCert->execute(['user_id' => $userId]);
+            $nbCertificats = $stmtCert->fetchColumn();
+
+            // Calcul du pourcentage
+            $percent = ($totalModules > 0) ? round(($completed / $totalModules) * 100) : 0;
+
+            return [
+                'completed_modules' => $completed,
+                'total_modules' => $totalModules,
+                'global_percentage' => $percent,
+                'certificates' => $nbCertificats // On renvoie la vraie valeur
+            ];
+
+        } catch (PDOException $e) {
+            // En cas d'erreur, on renvoie des zéros
+            return [
+                'completed_modules' => 0, 
+                'total_modules' => 0,
+                'global_percentage' => 0, 
+                'certificates' => 0
+            ];
         }
     }
 }

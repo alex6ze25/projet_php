@@ -44,7 +44,7 @@ class ConnexionController {
                     $_SESSION['user_email'] = $result['user']['email'];
                     
                     // Redirection vers la page profil
-                    header('Location: ../Views/profil.php');
+                    header('Location: ../Controllers/ProfilController.php');
                     exit;
                 } else {
                     $errors[] = $result['message'];

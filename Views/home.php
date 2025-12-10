@@ -21,7 +21,7 @@
         <div class="auth-buttons">
             <?php if (isset($_SESSION['user_id'])): ?>
                 <!-- Si l'utilisateur est connecté -->
-                <a href="../Views/profil.php">Mon Profil</a>
+                <a href="../Controllers/ProfilController.php">Mon Profil</a>
                 <a href="../Controllers/deconnexion.php">Déconnexion</a>
             <?php else: ?>
                 <!-- Si l'utilisateur n'est pas connecté -->
@@ -55,5 +55,45 @@
            </button>
         </div>
     </main>
+    <!-- Pied de page -->
+    <footer class="site-footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4><i class="fas fa-graduation-cap"></i> E-learning</h4>
+                <p>Plateforme éducative de prévention contre le harcèlement scolaire et le cyberharcèlement.</p>
+            </div>
+            
+            <div class="footer-section">
+                <h4><i class="fas fa-link"></i> Liens rapides</h4>
+                <ul>
+                    <li><a href="../Controllers/afficher_home.php"><i class="fas fa-home"></i> Accueil</a></li>
+                    <li><a href="#"><i class="fas fa-info-circle"></i> À propos</a></li>
+                    <li><a href="#"><i class="fas fa-envelope"></i> Contact</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h4><i class="fas fa-shield-alt"></i> Ressources</h4>
+                <ul>
+                    <li><a href="#"><i class="fas fa-book"></i> Guide de prévention</a></li>
+                    <li><a href="#"><i class="fas fa-phone-alt"></i> Numéros d'urgence</a></li>
+                    <li><a href="#"><i class="fas fa-download"></i> Documents utiles</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h4><i class="fas fa-legal"></i> Légal</h4>
+                <ul>
+                    <li><a href="#"><i class="fas fa-lock"></i> Confidentialité</a></li>
+                    <li><a href="#"><i class="fas fa-file-contract"></i> Mentions légales</a></li>
+                    <li><a href="#"><i class="fas fa-cookie"></i> Cookies</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2024 E-learning Platform. Tous droits réservés.</p>
+        </div>
+    </footer>
 </body>
 </html>
