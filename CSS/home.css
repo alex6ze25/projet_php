@@ -4,13 +4,15 @@ body {
     text-align: center;
     margin: 0;
     padding: 0;
+    /* Empêche le défilement horizontal accidentel sur mobile */
+    overflow-x: hidden; 
 }
 
 /* HEADER */
 header {
     background-color: #b5b5db;
     color: white;
-    padding: 5px 40px;
+    padding: 10px 20px; /* Padding réduit pour mobile */
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -20,6 +22,7 @@ header {
     width: 60px;
     height: 60px;
     border-radius: 5px;
+    object-fit: cover;
 }
 
 .site-title {
@@ -27,9 +30,8 @@ header {
     text-align: center;
     font-size: 2.8em;
     font-family: "Nunito", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: weight;
-    font-style: normal;
+    font-weight: normal; /* Correction: 'weight' n'est pas une valeur valide */
+    line-height: 1.2;
 }
 
 .auth-buttons {
@@ -40,14 +42,12 @@ header {
 .auth-buttons a {
     text-decoration: none;
     color: white;
-    padding: 8px 15px;
+    padding: 10px 20px; /* Boutons un peu plus gros par défaut */
     background-color: #7B68EE;
     border-radius: 5px;
     transition: background-color 0.2s;
     font-family: "Nunito", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: weight;
-    font-style: normal;
+    white-space: nowrap; /* Empêche le texte de se casser */
 }
 
 .auth-buttons a:hover {
@@ -60,12 +60,14 @@ header {
     color: #27ae60;
     padding: 15px 20px;
     margin: 20px auto;
+    width: 90%; /* Responsive width */
     max-width: 800px;
     border-radius: 8px;
     border-left: 4px solid #27ae60;
     text-align: center;
     font-family: "Nunito", sans-serif;
     font-weight: 500;
+    box-sizing: border-box; /* Important pour le padding */
 }
 
 /* TITRES */
@@ -75,22 +77,21 @@ h1 {
 
 h2 {
     font-family: "Nunito", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: weight;
-    font-style: normal;
     margin-bottom: 20px;
-    margin-top: -20px;
+    margin-top: -10px;
 }
 
 /* THEMES */
 main {
-    margin-top: 50px;
+    margin-top: 30px;
+    padding: 0 15px; /* Espace de sécurité sur les bords */
 }
 
 .themes {
     display: flex;
     justify-content: center;
-    gap: 50px;
+    flex-wrap: wrap; /* Permet aux cartes de passer à la ligne */
+    gap: 30px;
     margin-bottom: 50px;
 }
 
@@ -104,11 +105,13 @@ main {
     transition: transform 0.2s, box-shadow 0.2s;
     cursor: pointer;
     overflow: hidden;
+    /* Flexibilité pour mobile */
+    flex-direction: column; 
 }
 
-.theme-card:hover {
-    transform: scale(1.05);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+.theme-card:active {
+    /* Sur mobile, le hover ne marche pas bien, on utilise active pour le clic */
+    transform: scale(0.98);
 }
 
 .theme-card img {
@@ -119,62 +122,119 @@ main {
 }
 
 .theme-card h3 {
-    margin: 10px 0 5px;
+    margin: 15px 0 5px;
     color: #333;
+    font-size: 1.2em;
 }
 
 .theme-card p {
-    font-size: 0.9em;
-    padding: 0 10px 15px;
+    font-size: 0.95em;
+    padding: 0 15px 20px;
     color: #555;
+    line-height: 1.4;
 }
 
-/* RESPONSIVE */
-@media (max-width: 768px) {
+/* FOOTER */
+.site-footer {
+    background-color: #dcddeb;
+    color: #3e3d3d;
+    padding: 40px 0 20px;
+    margin-top: 50px;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    padding: 0 20px;
+    text-align: left; /* Plus lisible sur desktop */
+}
+
+.footer-section h4 {
+    color: #998aed;
+    margin-bottom: 15px;
+    font-size: 1.1em;
+}
+
+.footer-section ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-section ul li {
+    margin-bottom: 10px; /* Plus d'espace pour le tactile */
+}
+
+.footer-section a {
+    color: #3e3d3d;
+    text-decoration: none;
+    display: inline-block; /* Augmente la zone de clic */
+    padding: 2px 0;
+}
+
+.footer-bottom {
+    text-align: center;
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #bcbcbc; /* Couleur un peu plus visible */
+    color: #7f8c8d;
+    font-size: 0.9em;
+}
+
+/* =========================================
+   RESPONSIVE IPHONE 15 & MOBILES (< 480px)
+   ========================================= */
+@media (max-width: 480px) {
+    /* 1. Header en colonne pour gagner de la place */
     header {
-        padding: 5px 20px;
         flex-direction: column;
+        gap: 15px;
+        padding: 15px;
+    }
+
+    .site-title {
+        font-size: 2em; /* Titre plus petit */
+        margin: 5px 0;
+    }
+    
+    .logo img {
+        width: 50px;
+        height: 50px;
+    }
+
+    /* 2. Boutons d'authentification "App-like" */
+    .auth-buttons {
+        width: 100%;
+        display: flex;
+        flex-direction: row; /* On les garde côte à côte */
+        justify-content: space-between;
         gap: 10px;
     }
-    
-    .site-title {
-        font-size: 2em;
+
+    .auth-buttons a {
+        flex: 1; /* Chaque bouton prend 50% de la largeur */
+        text-align: center;
+        padding: 12px 10px; /* Zone de clic confortable */
+        font-size: 0.9em;
     }
-    
+
+    /* 3. Cartes thématiques pleine largeur */
     .themes {
         flex-direction: column;
-        gap: 30px;
+        align-items: center;
+        gap: 25px;
     }
-    
-    .theme-card {
-        width: 100%;
-        max-width: 300px;
-    }
-    
-    .auth-buttons {
-        justify-content: center;
-    }
-}
 
-@media (max-width: 480px) {
-    .site-title {
-        font-size: 1.8em;
+    .theme-card {
+        width: 100%; /* Prend toute la largeur disponible */
+        max-width: 360px; /* Mais ne devient pas trop gigantesque */
     }
-    
-    h2 {
-        font-size: 1.2em;
-        margin-top: 10px;
+
+    .theme-card img {
+        height: 200px; /* Images plus hautes pour être jolies sur mobile */
     }
-    
-    .auth-buttons {
-        flex-direction: column;
-        width: 100%;
-    }
-    
-    .auth-buttons a {
-        text-align: center;
-    }
-}
 
 /* Styles pour le pied de page */
 .site-footer {
@@ -237,4 +297,4 @@ main {
         grid-template-columns: 1fr;
         text-align: center;
     }
-}
+}}

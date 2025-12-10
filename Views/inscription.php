@@ -6,6 +6,12 @@
     <title>Inscription - Plateforme contre le harcèlement</title>
     <link rel="stylesheet" href="../CSS/inscription.css">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
+
+    <link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#7B68EE">
+<link rel="apple-touch-icon" href="../Images/lg.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 </head>
 <body>
     <header>
@@ -26,6 +32,15 @@
             <div class="registration-card">
                 <h2>Rejoignez notre communauté</h2>
                 <p class="subtitle">Ensemble, luttons contre le harcèlement</p>
+
+                <div style="text-align: center; margin-top: 20px; border-top: 1px solid #eee; padding-top: 20px;">
+    <p style="color: #666; margin-bottom: 15px;">Ou connectez-vous avec</p>
+    <a href="../Controllers/GoogleController.php" 
+       style="display: inline-flex; align-items: center; gap: 10px; background: white; color: #333; border: 1px solid #ddd; padding: 10px 20px; border-radius: 50px; text-decoration: none; font-weight: bold; box-shadow: 0 2px 5px rgba(0,0,0,0.1); transition: all 0.2s;">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" alt="Google" style="width: 20px; height: 20px;">
+        Google
+    </a>
+</div>
                 
                 <?php if (!empty($errors)): ?>
                     <div class="error-message">

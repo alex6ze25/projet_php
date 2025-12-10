@@ -10,6 +10,12 @@
     <link rel="stylesheet" href="../CSS/profil.css">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#7B68EE">
+<link rel="apple-touch-icon" href="../Images/lg.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 </head>
 <body>
     <header>
@@ -39,7 +45,6 @@
                             <li class="menu-item active"><a href="#infos" class="menu-link"><span class="menu-icon"><i class="fas fa-user"></i></span>Informations</a></li>
                             <li class="menu-item"><a href="#avancement" class="menu-link"><span class="menu-icon"><i class="fas fa-chart-line"></i></span>Mon avancement</a></li>
                             <li class="menu-item"><a href="#certificats" class="menu-link"><span class="menu-icon"><i class="fas fa-certificate"></i></span>Mes Certificats</a></li>
-                            <li class="menu-item"><a href="#suggestions" class="menu-link"><span class="menu-icon"><i class="fas fa-lightbulb"></i></span>Boîte à idées</a></li>
                             <li class="menu-item"><a href="#parametres" class="menu-link"><span class="menu-icon"><i class="fas fa-cog"></i></span>Paramètres</a></li>
                             <li class="menu-item"><a href="../Controllers/deconnexion.php" class="menu-link logout"><span class="menu-icon"><i class="fas fa-door-open"></i></span>Déconnexion</a></li>
                         </ul>

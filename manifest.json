@@ -1,0 +1,20 @@
+{
+  "name": "Stop Harcèlement",
+  "short_name": "StopHarcèlement",
+  "start_url": "/php/Controllers/afficher_home.php",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#7B68EE",
+  "icons": [
+    {
+      "src": "/php/Images/lg.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/php/Images/lg.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

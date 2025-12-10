@@ -7,6 +7,12 @@
     <link rel="stylesheet" href="../CSS/modules.css">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#7B68EE">
+<link rel="apple-touch-icon" href="../Images/lg.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 </head>
 <body>
     <header>

@@ -33,6 +33,15 @@ class InscriptionController {
                 $result = $this->userModel->createUser($userData);
                 
                 if ($result['success']) {
+                    // --- ENVOI DE L'EMAIL DE BIENVENUE ---
+                    require_once __DIR__ . '/../Services/EmailService.php';
+                    $emailService = new EmailService();
+                    // On envoie à l'email saisi dans le formulaire ($email) et au prénom ($prenom)
+                    $emailService->sendWelcomeEmail($email, $prenom);
+                    // -------------------------------------
+
+                    session_start();
+                    $_SESSION['user_id'] = $result['user_id'];
                     session_start();
                     $_SESSION['user_id'] = $result['user_id'];
                     $_SESSION['user_nom'] = $nom;

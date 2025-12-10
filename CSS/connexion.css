@@ -10,23 +10,29 @@ body {
     background-color: #f9f9f9;
     color: #333;
     line-height: 1.6;
+    /* Empêche le rebond élastique sur iPhone */
+    overscroll-behavior-y: none; 
 }
 
 /* HEADER */
 header {
     background-color: #b5b5db;
     color: white;
-    padding: 5px 40px;
+    padding: 10px 40px; /* Padding réduit légèrement */
     display: flex;
     align-items: center;
     justify-content: space-between;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    position: sticky; /* Le header reste en haut */
+    top: 0;
+    z-index: 1000;
 }
 
 .logo img {
-    width: 60px;
-    height: 60px;
+    width: 50px; /* Un peu plus petit pour mobile */
+    height: 50px;
     border-radius: 5px;
+    object-fit: cover;
 }
 
 .site-title {
@@ -35,11 +41,12 @@ header {
 }
 
 .site-title h1 {
-    font-size: 2.8em;
+    font-size: 2.2em;
     font-family: "Nunito", sans-serif;
     font-weight: 600;
     margin: 0;
     color: white;
+    line-height: 1.2;
 }
 
 .auth-buttons {
@@ -56,6 +63,7 @@ header {
     transition: background-color 0.2s;
     font-family: "Nunito", sans-serif;
     font-weight: 500;
+    white-space: nowrap; /* Empêche le texte de se casser */
 }
 
 .auth-buttons a:hover {
@@ -65,8 +73,8 @@ header {
 
 /* MAIN CONTENT */
 main {
-    padding: 40px 20px;
-    min-height: calc(100vh - 80px);
+    padding: 20px;
+    min-height: calc(100vh - 70px); /* Ajusté à la taille du header */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -106,6 +114,8 @@ main {
     border-radius: 8px;
     margin-bottom: 20px;
     border-left: 4px solid #e74c3c;
+    text-align: left;
+    font-size: 0.95em;
 }
 
 .success-message {
@@ -115,6 +125,7 @@ main {
     border-radius: 8px;
     margin-bottom: 20px;
     border-left: 4px solid #27ae60;
+    text-align: left;
 }
 
 /* Formulaire */
@@ -135,17 +146,19 @@ main {
 
 .form-group input {
     width: 100%;
-    padding: 12px 15px;
+    padding: 14px 15px; /* Un peu plus haut pour le doigt */
     border: 2px solid #e0e0e0;
     border-radius: 8px;
-    font-size: 16px;
+    font-size: 16px; /* Important : évite le zoom auto sur iPhone */
     transition: border-color 0.3s;
     font-family: "Nunito", sans-serif;
+    background-color: #fafafa;
 }
 
 .form-group input:focus {
     outline: none;
     border-color: #7B68EE;
+    background-color: #fff;
 }
 
 /* Bouton */
@@ -155,17 +168,23 @@ main {
     color: white;
     padding: 15px;
     border: none;
-    border-radius: 8px;
+    border-radius: 50px; /* Plus moderne en arrondi */
     font-size: 1.1em;
-    font-weight: 600;
+    font-weight: 700;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: transform 0.2s, background-color 0.3s;
     font-family: "Nunito", sans-serif;
     margin-top: 10px;
+    box-shadow: 0 4px 10px rgba(123, 104, 238, 0.3);
 }
 
 .submit-btn:hover {
     background-color: #6a5acd;
+    transform: translateY(-2px);
+}
+
+.submit-btn:active {
+    transform: translateY(0);
 }
 
 /* Lien d'inscription */
@@ -178,6 +197,7 @@ main {
 
 .inscription-redirect p {
     color: #666;
+    font-size: 0.95em;
 }
 
 .inscription-redirect a {
@@ -187,48 +207,87 @@ main {
     transition: color 0.3s;
 }
 
-.inscription-redirect a:hover {
-    color: #6a5acd;
-    text-decoration: underline;
-}
+/* --- OPTIMISATION MOBILE (MEDIA QUERIES) --- */
 
-/* Responsive */
 @media (max-width: 768px) {
     header {
-        padding: 5px 20px;
-        flex-direction: column;
-        gap: 10px;
+        padding: 10px 20px;
+        /* On garde la ligne sur tablette, on change juste la taille */
     }
-    
+
     .site-title h1 {
-        font-size: 2em;
+        font-size: 1.8em;
     }
-    
-    .connexion-card {
-        padding: 30px 20px;
-        margin: 20px;
-    }
-    
-    .auth-buttons {
-        justify-content: center;
+
+    .auth-buttons a span {
+        /* On pourrait cacher le texte des boutons si on avait des icônes */
     }
 }
 
 @media (max-width: 480px) {
+    /* Header compact pour mobile */
+    header {
+        flex-direction: column;
+        padding: 15px;
+        gap: 10px;
+    }
+    
+    .logo img {
+        width: 40px;
+        height: 40px;
+    }
+
     .site-title h1 {
-        font-size: 1.6em;
+        font-size: 1.5em; /* Titre plus petit */
+    }
+    
+    .auth-buttons {
+        width: 100%;
+        justify-content: center;
+        gap: 10px;
+    }
+    
+    .auth-buttons a {
+        font-size: 0.9em;
+        padding: 8px 12px;
+        flex: 1; /* Les boutons prennent toute la largeur disponible */
+        text-align: center;
+    }
+
+    /* Carte de connexion optimisée */
+    main {
+        padding: 10px;
+        align-items: flex-start; /* Remonte le contenu vers le haut */
+        padding-top: 20px;
+    }
+
+    .connexion-card {
+        padding: 25px 20px; /* Moins de padding interne pour gagner de la place */
+        box-shadow: 0 4px 15px rgba(0,0,0,0.05); /* Ombre plus légère */
+        border: 1px solid #f0f0f0;
     }
     
     .connexion-card h2 {
         font-size: 1.6em;
     }
     
-    .auth-buttons {
-        flex-direction: column;
-        width: 100%;
+    .subtitle {
+        font-size: 1em;
+        margin-bottom: 20px;
+    }
+
+    /* Champs de formulaire */
+    .form-group {
+        margin-bottom: 15px;
     }
     
-    .auth-buttons a {
-        text-align: center;
+    .form-group input {
+        padding: 12px; /* Zone de touche confortable */
+    }
+    
+    /* Bouton Google (si tu as la classe générique) */
+    .google-btn {
+        width: 100% !important;
+        justify-content: center;
     }
 }
